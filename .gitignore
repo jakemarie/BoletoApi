@@ -1,32 +1,58 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
-*.slo
-*.lo
-*.o
 *.obj
 
 # Precompiled Headers
-*.gch
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
+*.dylib
+*.so
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
 *.lib
+*.a
 
 # Executables
 *.exe
 *.out
 *.app
+
+# Build directories
+bin/
+obj/
+[Bb]uild/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+
+# Visual Studio specific files
+.vs/
+.vscode/
+*.csproj.user
+*.suo
+*.user
+*.sln.docstates
+
+# Rider specific files
+.idea/
+*.sln.iml
+
+# Logs and Database
+*.log
+*.ldf
+*.mdf
+
+# Application Insights
+ApplicationInsights.config
+ApplicationInsights.Telemetry.config
+
+# Environment settings
+*.env
+.env.local
+.env.*.local
+
+# Others
+*.cache
