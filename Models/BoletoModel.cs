@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BoletoApi.Enum;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BoletoApi.Models
 {
@@ -6,9 +9,9 @@ namespace BoletoApi.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Descricao { get; set; }
-        public decimal Valor { get; set; }
-        public DateTime Vencimento { get; set; } = DateTime.Now.ToLocalTime();
-        public DateTime DataDeAlteracao { get; set; } = DateTime.Now.ToLocalTime();
+        public required string Descricao { get; set; } 
+        public required decimal Valor { get; set; }
+        public required DateTime Vencimento { get; set; }
+        public StatusBoletoEnum Status { get; set; }
     }
 }

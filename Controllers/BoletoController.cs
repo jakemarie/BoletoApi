@@ -1,6 +1,5 @@
 ﻿using BoletoApi.Models;
 using BoletoApi.Service.BoletoService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoletoApi.Controllers
@@ -27,6 +26,13 @@ namespace BoletoApi.Controllers
             ServiceResponse<BoletoModel> serviceResponse = await _boletoInterface.GetBoletoById(id);
             return Ok(serviceResponse);
         }
+
+        [HttpGet("Boletos-data-atual")]
+        public async Task<ActionResult<ServiceResponse<List<BoletoModel>>>> GetBoletoDataAtual()
+        {
+            return Ok(await _boletoInterface.GetBoletoDataAtual());
+        }
+
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<BoletoModel>>>> UpdateBoleto(BoletoModel EditandoBoleto)

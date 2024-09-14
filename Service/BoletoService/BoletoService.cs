@@ -1,5 +1,6 @@
 ﻿using BoletoApi.Data;
 using BoletoApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BoletoApi.Service.BoletoService
 {
@@ -84,6 +85,29 @@ namespace BoletoApi.Service.BoletoService
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<BoletoModel>>> GetBoletoDataAtual()
+        {
+            ServiceResponse<List<BoletoModel>> serviceResponse = new ServiceResponse<List<BoletoModel>>();
+            try
+            {
+                var dataAtual = DateTime.Today;
+
+                serviceResponse.Dados = _context.Boletos.Where(b => b.Vencimento.Date == dataAtual).ToList();
+
+                if (serviceResponse.Dados.Count == 0) 
+                {
+                    serviceResponse.Mensagem = "Nenhum boleto encontrado.";
+                }
+
+            }
+            catch (Exception ex) 
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<List<BoletoModel>>> GetBoletos()
         {
             ServiceResponse<List<BoletoModel>> serviceResponse = new ServiceResponse<List<BoletoModel>>();
@@ -92,7 +116,7 @@ namespace BoletoApi.Service.BoletoService
                 serviceResponse.Dados = _context.Boletos.ToList();
                 if(serviceResponse.Dados.Count == 0)
                 {
-                    serviceResponse.Mensagem = "Nehum boleto encontrado. ";
+                    serviceResponse.Mensagem = "Nenhum boleto encontrado.";
                 }
             }
             catch (Exception ex) 
@@ -108,14 +132,14 @@ namespace BoletoApi.Service.BoletoService
             ServiceResponse<List<BoletoModel>> serviceResponse = new ServiceResponse<List<BoletoModel>>();
             try
             {
-                BoletoModel boleto = _context.Boletos.FirstOrDefault(x => x.Id == EditandoBoleto.Id);
+                BoletoModel boleto = _context.Boletos.AsNoTracking().FirstOrDefault(x => x.Id == EditandoBoleto.Id);
                 if (boleto == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Boleto não Localizado!";
                     serviceResponse.Sucesso = false;
                 }
-                boleto.DataDeAlteracao = DateTime.Now.ToLocalTime();
+                
                 _context.Boletos.Update(EditandoBoleto);
                 await _context.SaveChangesAsync();
 

@@ -19,8 +19,7 @@ namespace BoletoApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Vencimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataDeAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Vencimento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
