@@ -6,7 +6,6 @@ namespace BoletoApi.Enum
     public enum StatusBoletoEnum
     {
         Pago,
-        AguardandoPagamento,
-        Vencido 
+        AguardandoPagamento 
     }
 }

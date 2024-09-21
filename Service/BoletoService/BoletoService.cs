@@ -92,7 +92,8 @@ namespace BoletoApi.Service.BoletoService
             {
                 var dataAtual = DateTime.Today;
 
-                serviceResponse.Dados = _context.Boletos.Where(b => b.Vencimento.Date == dataAtual).ToList();
+                serviceResponse.Dados = _context.Boletos.Where(b => b.Vencimento.Date == dataAtual && b.Status == Enum.StatusBoletoEnum.AguardandoPagamento).ToList();
+
 
                 if (serviceResponse.Dados.Count == 0) 
                 {
@@ -113,7 +114,7 @@ namespace BoletoApi.Service.BoletoService
             ServiceResponse<List<BoletoModel>> serviceResponse = new ServiceResponse<List<BoletoModel>>();
             try
             {
-                serviceResponse.Dados = _context.Boletos.ToList();
+                serviceResponse.Dados = _context.Boletos.OrderByDescending(b => b.Vencimento).ToList();
                 if(serviceResponse.Dados.Count == 0)
                 {
                     serviceResponse.Mensagem = "Nenhum boleto encontrado.";
